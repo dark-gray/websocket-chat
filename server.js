@@ -2,38 +2,37 @@ var http = require('http');
 var Static = require('node-static');
 var WebSocketServer = new require('ws');
 
-var clients = {};
-
+var clients = [];
 var webSocketServer = new WebSocketServer.Server({port: 8081});
+
 webSocketServer.on('connection', function(ws) {
+    var id;
+    do {
+        id = Math.random();
+    } while (clients[id]);
 
-  var id = Math.random();
-  clients[id] = ws;
-  console.log("Новое соединение " + id);
+    clients[id] = ws;
+    console.log("Новое соединение " + id);
 
-  ws.on('message', function(message) {
-    console.log('Получено сообщение: ' + message);
+    ws.on('message', function(message) {
+        console.log('Получено сообщение: ' + message);
 
-    for(var key in clients) {
-      clients[key].send(message);
-    }
-  });
+        for(var key in clients) {
+            clients[key].send(message);
+        }
+    });
 
-  ws.on('close', function() {
-    console.log('Соединение закрыто ' + id);
-    delete clients[id];
-  });
-
+    ws.on('close', function() {
+        console.log('Соединение закрыто ' + id);
+        delete clients[id];
+    });
 });
-
 
 // обычный сервер (статика) на порту 8080
 var fileServer = new Static.Server('.');
 http.createServer(function (req, res) {
-  
-  fileServer.serve(req, res);
-
+    fileServer.serve(req, res);
 }).listen(8080);
 
-console.log("Сервер запущен, порт 8081.");
+console.log("Сервер запущен на портах 8080 и 8081.");
 
