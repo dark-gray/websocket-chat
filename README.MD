@@ -1,3 +1,5 @@
-Работает под Node.js.
-Понадобится поставить два модуля: npm install node-static && npm install ws.
-Запускать server.js.
+РџСЂРѕСЃС‚РµР№С€РёР№ С‡Р°С‚ РЅР° WebSocket.
+Р”Р»СЏ Р·Р°РїСѓСЃРєР° РЅРµРѕР±С…РѕРґРёРјРѕ СѓСЃС‚Р°РЅРѕРІРёС‚СЊ РґРІР° РјРѕРґСѓР»СЏ:
+npm install node-static
+npm install ws.
+Р—Р°РїСѓСЃРєР°С‚СЊ server.js РїРѕРґ Node.js.
